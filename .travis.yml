@@ -1,23 +1,17 @@
 sudo: false
-#CODECOV_TOKEN="e7a2dfea-5514-4998-8f4c-ee6114969db6"
 language: node_js
 node_js:
-  - 'node'
-
-
+- node
 install: npm ci
-
 script:
-  - npm lint
-  - npm test
- 
-
-
+- npm lint
+- npm test
 jobs:
   include:
   - stage: Produce Test Coverage
     node_js: node
-    script: jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+    script: jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+      && rm -rf ./coverage
   - stage: npm release
     if: tag IS present
     node_js: '11'
@@ -35,7 +29,7 @@ deploy:
   provider: npm
   email: mmcgrath@mindedge.com
   api_key:
-    secure: KyNt8wBuDVbOb9fok9uyTYS2G+Ki4QyVEBD2iVmJre3SoLQfLr6ItvSqJhvj8x9ojPEj7sJDnMU3C3MP9btq93LMottsVNtQNDG7Pj/y6Ovieu1Y7cWHmreXyL18h92yKBJkfneu7aTBWCc6UB5V9SohNMj9Zc9jR2F/J4q151bqSc9T1O8j971JDD0zHVsuO1FQuaZDKBPX1rBQr08hnPwVF8RcWpEu9pbI5KGykoZhp11b53Skd6wpriHh8q+VwVh0tuMHW0BoRcf6ED9EESCg5FONN/EMQtyY804+rBrOxuItISfgJT/20qqkJjZEPmEL5QhJC3fT91alOF+laQPaRVGSAFGl3V4lryxMKOBrQKJpNdN/pD9miWWoQ3zgyxqEV2v3nhOxa2m/JlMBg2sQliei0POZ/W0R78pSHZcAhScOP5hTwzXFeKUSCXdQemM1PEGWDtu5rWrn54h0mNcR3RiK/W+79+2Po0EvRLI+vNUsHQcTWJyC0DQ324ChpwMevJT9vMtzDzK7z7p51GKWjATUA5n+Q/zcfCtoUByH8M1+AMlMPOKXCWhU1KFKuLTHlknMX/9Yv6J727cIbKXhGL6SAgSvP8oqjs5+Er9qqeknXVPu+foD+RkeFDAS78opgisdA2ifkGnU0AxEJSYSkPLOl5oiuPEV0x8MGCg=
+    secure: m+7ciPaxngap6qajDdwdqYs1IoD1xv2bAKAguotZFxxC5DRPNFCp5ZVIixjEeJBLWLmmuCeHgIwFfzylSParxayLu6NHLvRrbRwbFFvY0TytlEKzEj7cxP0dF0F1+z15yL5odxtFaMvu6F2aTgord7rsqQX7xOZmYWm3vjHSNL0H0mgjiD6OL8HQ2Gkwc0eGgzceiOBqPbTyoa1ftRhJLn7cjAFopO0vDIowvqQm/CzRPTp3fzp7gBuId18bYKzwAuBGNn+mRlqtKxbTxR55xZmjSdvLcZKqGILkRfxSDke+A6+QhHolA2DIs5g8goPTQ9tTbwGDYVVqBLHWeR///QUId7GY+KeAvwG2+XKaUsB2KkJfyMwGEAxgVdRfc+dlVZrYr+gOEq7kg5F3QAg6ZDzZLxV4ayp7HbyiUfKGvmwuJqIeDQuhcDN+/v3mnxl25dCmcr0WJkJ2MAAHOMgAjLC84iRAfzkOXXqtM1Fpv11jOIVskMLBZEhEuLpn5MIK4Tk19hjAa9F5s9lmCobHwFwKRMpGPFOTiDsjeYIwKtLwe0ZTzEpEqR9RcNkI5EaVNb9MJVo4sHjzYKLG/nEvdO3f4QgSHuaBdhFUk+TKEeW4l3S6Fi4sn7lVbj3jb8N7qiDltmzqlZSdE96YFZfID0IMX0og5ZHpKbH7H/JF420=
   on:
     tags: true
-    repo: mcmike-mindedge/typescript-learning
+    repo: mindedge/api-transformer
