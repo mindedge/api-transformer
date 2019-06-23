@@ -12,19 +12,13 @@ jobs:
     node_js: node
     script: jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
       && rm -rf ./coverage
+  
   - stage: npm release
     if: tag IS present
     node_js: '11'
     script: npm build
-    before_deploy:
-    - cd dist
-    deploy:
-      provider: npm
-      email: "$NPM_EMAIL"
-      api_key: "$NPM_TOKEN"
-      skip_cleanup: true
-      on:
-        tags: true
+
+    
 deploy:
   provider: npm
   email: mmcgrath@mindedge.com
@@ -33,3 +27,6 @@ deploy:
   on:
     tags: true
     repo: mindedge/api-transformer
+env:
+  global:
+  - secure: N8uJyos2m11mYqfjcqcI4BVH9mW+YEIcwwfymcP81flBua9tfbY3nSw759fjwMDjrffMvYyu2ocGggrz9oNrNR3y4tzNstBvGse7Ocm0TKnxorwTE4K2LFEMtxVeFRexwvfSdC5GNNGkgXdIw2vdYVrbQA5NRE4os/DlNQ29whAtSwiMLnAjHDj8wZAZG7p82xS2u8SKcWPNUDnjNfvcHib+hkTrQ5NqOqL2etsGGNB7R9kNHPEe9Nggz1vcHd5tQySN7o7ImjDn55q1jSg+ls+bX1jct8Kwns2kMA+Kcrs6tVhSTjMkF7rv2Sqrkc25QIvHNkCLI9o/wk4vQiYKey0A/EE+aO8DSq+26KwP57zyw9rxsfUPl5oxmWskL4K6aRk4pUdvu5UVaBCiCNMsM/zRfKdybrzW+HC++ynOLJVgfVcOcZF3DZ3IZgSzTjwBLD87XAl++nyzjlSG1eJa+uBsNSiOhyVQS31+48TkNXXHnuyTUp2bNiMcXojF7kBy/pJ+4hj3wKeAOl52CjRlzujb08CMGFXKT713i0tTyF3+9I1QpsbJW/rltikDLvX2caFUkesCrHhpC6+vxbE9BU8+5MZp8mdJSz2s7m/dUR4S/uUHXOtiEOrxBDN99Q2smsb6U2+W6herVGZvv8qwcSR4T9njm2Qa3+Kt3c34gMQ=
