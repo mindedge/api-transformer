@@ -1,19 +1,26 @@
 sudo: false
-
+#CODECOV_TOKEN="e7a2dfea-5514-4998-8f4c-ee6114969db6"
 language: node_js
 node_js:
   - 'node'
 
-install: 
-  - npm ci
+
+install: npm ci
+
 script:
-- yarn lint
-- yarn test
+  - npm lint
+  - npm test
+ 
+
+
 jobs:
   include:
+  - stage: Produce Test Coverage
+    node_js: node
+    script: jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
   - stage: npm release
     if: tag IS present
-    node_js: '10'
+    node_js: '11'
     script: npm build
     before_deploy:
     - cd dist
